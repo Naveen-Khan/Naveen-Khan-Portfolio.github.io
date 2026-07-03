@@ -67,6 +67,14 @@ const projects = [
       "An intelligent sales forecasting platform powered by Polynomial Regression. Analyzes advertising investments across TV, Radio, and Newspaper channels to predict future sales, optimize marketing budgets, and deliver actionable business insights through an interactive dashboard.\n\nAchieved 95.3% R² accuracy with 0.903 MAE, validated through enabling businesses to make data-driven marketing decisions with confidence.",
     live: "https://naveen-khan-sales-prediction-app-bamzvr.streamlit.app",
   },
+  {
+    n: "08",
+    title: "OutreachAI — Smart Email Outreach Agent",
+    tag: "AI · AUTOMATION · SALES OUTREACH",
+    tech: ["n8n", "OpenRouter AI LLMs", "Google Sheets", "Gmail", "JavaScript", "GCP"],
+    description:
+      "An AI-powered email automation agent built with n8n that sends 50+ personalized sales emails daily to potential clients. The system automatically reads company data from Google Sheets, generates tailored outreach emails using LLMs, sends them without manual intervention, and logs all email content back to the sheet. Reduced manual effort by 90% while maintaining a cost of approximately $0.02 per email.",
+  },
 ];
 
 const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
