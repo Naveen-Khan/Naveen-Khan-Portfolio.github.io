@@ -1,12 +1,8 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion, Variants } from "framer-motion";
 
 type Variant = "split" | "float" | "zoom" | "slide" | "rotate3d" | "neon";
 
-const EASE = "power3.out";
+const EASE = [0.2, 0.8, 0.2, 1] as const;
 
 const SectionHeading = ({
   title,
@@ -21,114 +17,12 @@ const SectionHeading = ({
   align?: "center" | "left";
   variant?: Variant;
 }) => {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const underlineRef = useRef<HTMLDivElement>(null);
-
   const words = title.split(" ");
   const lastWord = words.slice(-1)[0];
   const firstWords = words.slice(0, -1).join(" ");
 
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    const heading = headingRef.current;
-    if (!wrap || !heading) return;
-
-    const ctx = gsap.context(() => {
-      // wrapper fade
-      gsap.from(wrap.querySelectorAll("[data-eyebrow], [data-subtitle]"), {
-        opacity: 0,
-        y: 12,
-        duration: 0.5,
-        ease: EASE,
-        stagger: 0.06,
-        scrollTrigger: { trigger: wrap, start: "top 95%", once: true },
-      });
-
-      const trigger = { trigger: heading, start: "top 95%", once: true } as const;
-
-      if (variant === "split") {
-        const letters = heading.querySelectorAll<HTMLElement>("[data-letter]");
-        gsap.from(letters, {
-          opacity: 0,
-          yPercent: 80,
-          filter: "blur(6px)",
-          rotateX: -40,
-          duration: 0.55,
-          ease: EASE,
-          stagger: 0.018,
-          scrollTrigger: trigger,
-        });
-      } else if (variant === "float") {
-        gsap.from(heading, {
-          opacity: 0,
-          y: 24,
-          scale: 0.96,
-          filter: "blur(8px)",
-          duration: 0.7,
-          ease: EASE,
-          scrollTrigger: trigger,
-        });
-        gsap.to(heading, {
-          y: -8,
-          duration: 4,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: 0.8,
-        });
-      } else if (variant === "zoom") {
-        gsap.from(heading, {
-          opacity: 0,
-          scale: 1.4,
-          filter: "blur(12px)",
-          duration: 0.75,
-          ease: "expo.out",
-          scrollTrigger: trigger,
-        });
-      } else if (variant === "slide") {
-        gsap.from(heading, {
-          opacity: 0,
-          x: -80,
-          filter: "blur(8px)",
-          duration: 0.7,
-          ease: EASE,
-          scrollTrigger: trigger,
-        });
-        if (underlineRef.current) {
-          gsap.from(underlineRef.current, {
-            scaleX: 0,
-            transformOrigin: "left",
-            duration: 0.8,
-            delay: 0.15,
-            ease: EASE,
-            scrollTrigger: trigger,
-          });
-        }
-      } else if (variant === "rotate3d") {
-        gsap.from(heading, {
-          opacity: 0,
-          rotateX: 60,
-          y: 24,
-          filter: "blur(8px)",
-          duration: 0.75,
-          ease: EASE,
-          scrollTrigger: trigger,
-        });
-      } else if (variant === "neon") {
-        gsap.from(heading, {
-          opacity: 0,
-          scale: 0.96,
-          y: 16,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: trigger,
-        });
-      }
-    }, wrap);
-
-    return () => ctx.revert();
-  }, [variant]);
+  // Shared viewport – fires as soon as the wrapper is even partially in view
+  const inView = { once: true, amount: 0.05, margin: "0px 0px -10% 0px" } as const;
 
   const baseClass =
     "section-heading-premium font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1] tracking-tight inline-block cursor-default";
@@ -137,8 +31,29 @@ const SectionHeading = ({
     if (variant === "split") {
       const fullText = `${firstWords} ${lastWord}.`;
       const letters = Array.from(fullText);
+      const container: Variants = {
+        hidden: {},
+        show: { transition: { staggerChildren: 0.022, delayChildren: 0 } },
+      };
+      const letterV: Variants = {
+        hidden: { opacity: 0, y: 28, rotateX: -55, filter: "blur(6px)" },
+        show: {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.45, ease: EASE },
+        },
+      };
       return (
-        <h2 ref={headingRef} className={baseClass} style={{ perspective: 800 }}>
+        <motion.h2
+          className={baseClass}
+          style={{ perspective: 800 }}
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={inView}
+        >
           {letters.map((ch, i) => {
             const inLast = i >= fullText.length - lastWord.length - 1 && ch !== ".";
             const cls = inLast
@@ -147,55 +62,73 @@ const SectionHeading = ({
               ? "text-copper"
               : "gradient-text-warm";
             return (
-              <span
+              <motion.span
                 key={i}
-                data-letter
+                variants={letterV}
                 className={`inline-block ${cls}`}
                 style={{ whiteSpace: ch === " " ? "pre" : "normal" }}
               >
                 {ch === " " ? "\u00A0" : ch}
-              </span>
+              </motion.span>
             );
           })}
-        </h2>
+        </motion.h2>
       );
     }
 
     if (variant === "float") {
       return (
-        <h2
-          ref={headingRef}
-          className={`${baseClass} glow-text animate-pulse-glow-soft`}
+        <motion.h2
+          className={`${baseClass} glow-text`}
           style={{ textShadow: "0 0 30px hsl(25 78% 55% / 0.5)" }}
+          initial={{ opacity: 0, y: 18, scale: 0.97, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          viewport={inView}
+          transition={{ duration: 0.5, ease: EASE }}
         >
           <span className="gradient-text-warm">{firstWords} </span>
           <span className="font-serif italic text-foreground/90">{lastWord}</span>
           <span className="text-copper">.</span>
-        </h2>
+        </motion.h2>
       );
     }
 
     if (variant === "zoom") {
       return (
-        <h2 ref={headingRef} className={baseClass}>
+        <motion.h2
+          className={baseClass}
+          initial={{ opacity: 0, scale: 1.25, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          viewport={inView}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <span className="gradient-text-warm">{firstWords} </span>
           <span className="font-serif italic text-foreground/90">{lastWord}</span>
           <span className="text-copper">.</span>
-        </h2>
+        </motion.h2>
       );
     }
 
     if (variant === "slide") {
       return (
         <div className="relative inline-block overflow-hidden">
-          <h2 ref={headingRef} className={baseClass}>
+          <motion.h2
+            className={baseClass}
+            initial={{ opacity: 0, x: -60, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={inView}
+            transition={{ duration: 0.55, ease: EASE }}
+          >
             <span className="gradient-text-warm">{firstWords} </span>
             <span className="font-serif italic text-foreground/90">{lastWord}</span>
             <span className="text-copper">.</span>
-          </h2>
-          <div
-            ref={underlineRef}
-            className="h-[2px] mt-2 bg-gradient-to-r from-copper via-copper-glow to-transparent"
+          </motion.h2>
+          <motion.div
+            className="h-[2px] mt-2 bg-gradient-to-r from-copper via-copper-glow to-transparent origin-left"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={inView}
+            transition={{ duration: 0.7, ease: EASE }}
           />
         </div>
       );
@@ -203,25 +136,34 @@ const SectionHeading = ({
 
     if (variant === "rotate3d") {
       return (
-        <h2
-          ref={headingRef}
+        <motion.h2
           className={baseClass}
           style={{ transformPerspective: 1200, transformStyle: "preserve-3d" } as React.CSSProperties}
+          initial={{ opacity: 0, rotateX: 55, y: 20, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, rotateX: 0, y: 0, filter: "blur(0px)" }}
+          viewport={inView}
+          transition={{ duration: 0.55, ease: EASE }}
         >
           <span className="gradient-text-warm">{firstWords} </span>
           <span className="font-serif italic text-foreground/90">{lastWord}</span>
           <span className="text-copper">.</span>
-        </h2>
+        </motion.h2>
       );
     }
 
     if (variant === "neon") {
       return (
-        <h2 ref={headingRef} className={`${baseClass} animate-neon-flicker`}>
+        <motion.h2
+          className={`${baseClass} animate-neon-flicker`}
+          initial={{ opacity: 0, scale: 0.96, y: 14 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={inView}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <span className="gradient-text-warm">{firstWords} </span>
           <span className="font-serif italic text-foreground/90">{lastWord}</span>
           <span className="text-copper">.</span>
-        </h2>
+        </motion.h2>
       );
     }
 
@@ -229,32 +171,56 @@ const SectionHeading = ({
   };
 
   return (
-    <div
-      ref={wrapRef}
-        className={`section-heading-wrap mb-14 ${align === "center" ? "text-center" : "text-left"}`}
+    <motion.div
+      className={`section-heading-wrap mb-14 ${align === "center" ? "text-center" : "text-left"}`}
+      initial="hidden"
+      whileInView="show"
+      viewport={inView}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.06, delayChildren: 0 } },
+      }}
     >
       {eyebrow && (
-        <div
-          data-eyebrow
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE } },
+          }}
           className={`flex items-center gap-3 mb-4 ${align === "center" ? "justify-center" : ""}`}
         >
-          <span className="h-px w-8 bg-copper/60" />
+          <motion.span
+            className="h-px w-8 bg-copper/60 origin-right"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={inView}
+            transition={{ duration: 0.5, ease: EASE }}
+          />
           <p className="text-[10px] uppercase tracking-[0.4em] text-copper-glow font-mono-code">
             {eyebrow}
           </p>
-          <span className="h-px w-8 bg-copper/60" />
-        </div>
+          <motion.span
+            className="h-px w-8 bg-copper/60 origin-left"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={inView}
+            transition={{ duration: 0.5, ease: EASE }}
+          />
+        </motion.div>
       )}
       {renderHeading()}
       {subtitle && (
-        <p
-          data-subtitle
+        <motion.p
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: 0.05 } },
+          }}
           className="text-muted-foreground mt-4 text-sm sm:text-base max-w-xl mx-auto"
         >
           {subtitle}
-        </p>
+        </motion.p>
       )}
-    </div>
+    </motion.div>
   );
 };
 
