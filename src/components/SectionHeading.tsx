@@ -51,48 +51,47 @@ const SectionHeading = ({
         const letters = heading.querySelectorAll<HTMLElement>("[data-letter]");
         gsap.from(letters, {
           opacity: 0,
-          yPercent: 120,
-          filter: "blur(10px)",
-          rotateX: -60,
-          duration: 0.9,
+          yPercent: 80,
+          filter: "blur(6px)",
+          rotateX: -40,
+          duration: 0.55,
           ease: EASE,
-          stagger: 0.035,
+          stagger: 0.018,
           scrollTrigger: trigger,
         });
       } else if (variant === "float") {
         gsap.from(heading, {
           opacity: 0,
-          y: 40,
-          rotate: -4,
-          scale: 0.92,
-          filter: "blur(14px)",
-          duration: 1.1,
+          y: 24,
+          scale: 0.96,
+          filter: "blur(8px)",
+          duration: 0.7,
           ease: EASE,
           scrollTrigger: trigger,
         });
         gsap.to(heading, {
-          y: -10,
+          y: -8,
           duration: 4,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: 1.1,
+          delay: 0.8,
         });
       } else if (variant === "zoom") {
         gsap.from(heading, {
           opacity: 0,
-          scale: 2.4,
-          filter: "blur(24px)",
-          duration: 1.4,
+          scale: 1.4,
+          filter: "blur(12px)",
+          duration: 0.75,
           ease: "expo.out",
           scrollTrigger: trigger,
         });
       } else if (variant === "slide") {
         gsap.from(heading, {
           opacity: 0,
-          x: -140,
-          filter: "blur(12px)",
-          duration: 1.1,
+          x: -80,
+          filter: "blur(8px)",
+          duration: 0.7,
           ease: EASE,
           scrollTrigger: trigger,
         });
@@ -100,8 +99,8 @@ const SectionHeading = ({
           gsap.from(underlineRef.current, {
             scaleX: 0,
             transformOrigin: "left",
-            duration: 1.3,
-            delay: 0.3,
+            duration: 0.8,
+            delay: 0.15,
             ease: EASE,
             scrollTrigger: trigger,
           });
@@ -109,34 +108,22 @@ const SectionHeading = ({
       } else if (variant === "rotate3d") {
         gsap.from(heading, {
           opacity: 0,
-          rotateX: 95,
-          y: 40,
-          filter: "blur(14px)",
-          duration: 1.2,
+          rotateX: 60,
+          y: 24,
+          filter: "blur(8px)",
+          duration: 0.75,
           ease: EASE,
           scrollTrigger: trigger,
         });
-        gsap.to(heading, {
-          y: -6,
-          duration: 5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: 1.2,
-        });
       } else if (variant === "neon") {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, scale: 0.92 },
-          {
-            opacity: 1,
-            scale: 1,
-            keyframes: { opacity: [0, 1, 0.3, 1, 0.6, 1] },
-            duration: 1.6,
-            ease: "power2.out",
-            scrollTrigger: trigger,
-          }
-        );
+        gsap.from(heading, {
+          opacity: 0,
+          scale: 0.96,
+          y: 16,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: trigger,
+        });
       }
     }, wrap);
 
