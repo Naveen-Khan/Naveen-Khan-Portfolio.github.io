@@ -94,10 +94,11 @@ const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay: i * 0.08, ease: [0.2, 0.8, 0.2, 1] }}
+      initial={{ opacity: 0, y: 40, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: (i % 2) * 0.06, ease: [0.2, 0.8, 0.2, 1] }}
+      whileHover={{ y: -6 }}
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
