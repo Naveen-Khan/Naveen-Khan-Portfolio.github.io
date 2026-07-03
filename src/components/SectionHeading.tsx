@@ -38,14 +38,14 @@ const SectionHeading = ({
       // wrapper fade
       gsap.from(wrap.querySelectorAll("[data-eyebrow], [data-subtitle]"), {
         opacity: 0,
-        y: 16,
-        duration: 0.8,
+        y: 12,
+        duration: 0.5,
         ease: EASE,
-        stagger: 0.1,
-        scrollTrigger: { trigger: wrap, start: "top 85%", once: true },
+        stagger: 0.06,
+        scrollTrigger: { trigger: wrap, start: "top 95%", once: true },
       });
 
-      const trigger = { trigger: heading, start: "top 85%", once: true } as const;
+      const trigger = { trigger: heading, start: "top 95%", once: true } as const;
 
       if (variant === "split") {
         const letters = heading.querySelectorAll<HTMLElement>("[data-letter]");
