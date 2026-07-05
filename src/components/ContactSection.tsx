@@ -32,6 +32,7 @@ const ContactSection = () => {
   const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "4-RlRGpAfUbw-bOmI";
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_vepazqn";
   const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_jaj6c4w";
+  const AUTOREPLY_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID || "";
   const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "naveenkhan0059@gmail.com";
 
   const handleSubmit = async (e: React.FormEvent) => {
