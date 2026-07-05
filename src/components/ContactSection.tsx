@@ -32,6 +32,7 @@ const ContactSection = () => {
   const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "4-RlRGpAfUbw-bOmI";
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_vepazqn";
   const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_jaj6c4w";
+  const AUTOREPLY_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID || "";
   const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "naveenkhan0059@gmail.com";
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,6 +77,31 @@ const ContactSection = () => {
         contact_email: CONTACT_EMAIL,
       };
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, { publicKey: PUBLIC_KEY });
+      // Optional auto-reply / copy to the user's own email
+      if (AUTOREPLY_TEMPLATE_ID) {
+        try {
+          await emailjs.send(
+            SERVICE_ID,
+            AUTOREPLY_TEMPLATE_ID,
+            { ...templateParams, to_name: form.name, to_email: form.email, reply_to: CONTACT_EMAIL },
+            { publicKey: PUBLIC_KEY },
+          );
+        } catch (autoErr) {
+          console.warn("Auto-reply failed (owner email still sent):", autoErr);
+        }
+      } else {
+        // Fallback: re-send the same template with recipient overridden to the user
+        try {
+          await emailjs.send(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            { ...templateParams, to_name: form.name, to_email: form.email, email: form.email, reply_to: CONTACT_EMAIL },
+            { publicKey: PUBLIC_KEY },
+          );
+        } catch (autoErr) {
+          console.warn("User-copy send failed (owner email still sent):", autoErr);
+        }
+      }
       setStatus("success");
       setForm(initialForm);
       setTimeout(() => setStatus("idle"), 4500);

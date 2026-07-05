@@ -77,6 +77,27 @@ const projects = [
   },
 ];
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const cardV = {
+  hidden: { opacity: 0, y: 60, scale: 0.94, rotateX: -8, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: EASE, staggerChildren: 0.06, delayChildren: 0.15 },
+  },
+};
+const itemV = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
+};
+const chipV = {
+  hidden: { opacity: 0, scale: 0.6, y: 8 },
+  show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: EASE } },
+};
+
 const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -94,11 +115,11 @@ const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: (i % 2) * 0.06, ease: [0.2, 0.8, 0.2, 1] }}
-      whileHover={{ y: -6 }}
+      variants={cardV}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-60px" }}
+      whileHover={{ y: -8, transition: { duration: 0.3, ease: EASE } }}
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -109,10 +130,12 @@ const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{ background: "radial-gradient(600px circle at var(--mx,50%) var(--my,50%), hsl(25 78% 55% / 0.18), transparent 60%)" }} />
       <div className="relative z-10 flex flex-col h-full" style={{ transform: "translateZ(40px)" }}>
-        <div className="flex items-start justify-between mb-6">
+        <motion.div variants={itemV} className="flex items-start justify-between mb-6">
           <span className="font-mono-code text-xs text-copper-glow/70 tracking-widest">{p.n}</span>
           {p.github ? (
-            <a
+            <motion.a
+              whileHover={{ scale: 1.15, rotate: -8 }}
+              whileTap={{ scale: 0.9 }}
               href={p.github}
               target="_blank"
               rel="noopener noreferrer"
@@ -120,9 +143,11 @@ const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
               className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-foreground/70 hover:text-copper-glow border border-border/50 hover:border-copper/60 transition-all"
             >
               <FaGithub size={15} />
-            </a>
+            </motion.a>
           ) : (
-            <a
+            <motion.a
+              whileHover={{ scale: 1.15, rotate: -8 }}
+              whileTap={{ scale: 0.9 }}
               href="https://github.com/Naveen-Khan"
               target="_blank"
               rel="noopener noreferrer"
@@ -130,34 +155,44 @@ const ProjectCard = ({ p, i }: { p: typeof projects[number]; i: number }) => {
               className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-foreground/70 hover:text-copper-glow border border-border/50 hover:border-copper/60 transition-all"
             >
               <FaGithub size={15} />
-            </a>
+            </motion.a>
           )}
-        </div>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-copper-glow/80 mb-3">{p.tag}</p>
-        <h3 className="font-display text-2xl sm:text-3xl text-foreground/95 leading-tight mb-3 group-hover:gradient-text-warm transition-all">
+        </motion.div>
+        <motion.p variants={itemV} className="text-[10px] uppercase tracking-[0.3em] text-copper-glow/80 mb-3">{p.tag}</motion.p>
+        <motion.h3 variants={itemV} className="font-display text-2xl sm:text-3xl text-foreground/95 leading-tight mb-3 group-hover:gradient-text-warm transition-all">
           {p.title}
-        </h3>
-        <p className="text-sm text-foreground/65 leading-relaxed mb-6 flex-1">{p.description}</p>
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        </motion.h3>
+        <motion.p variants={itemV} className="text-sm text-foreground/65 leading-relaxed mb-6 flex-1">{p.description}</motion.p>
+        <motion.div
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } } }}
+          className="flex flex-wrap gap-1.5 mb-5"
+        >
           {p.tech.map((t) => (
-            <span key={t} className="text-[10px] px-2.5 py-1 rounded-full bg-copper/10 text-copper-glow border border-copper/25">
+            <motion.span
+              variants={chipV}
+              whileHover={{ y: -2, scale: 1.06 }}
+              key={t}
+              className="text-[10px] px-2.5 py-1 rounded-full bg-copper/10 text-copper-glow border border-copper/25"
+            >
               {t}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
         {p.live ? (
-          <a
+          <motion.a
+            variants={itemV}
+            whileHover={{ x: 4 }}
             href={p.live}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-copper-glow/80 hover:text-copper-glow transition-colors"
           >
             Live Demo <HiArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </a>
+          </motion.a>
         ) : (
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-copper-glow/80 group-hover:text-copper-glow transition-colors">
+          <motion.div variants={itemV} className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-copper-glow/80 group-hover:text-copper-glow transition-colors">
             Case Study <HiArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </div>
+          </motion.div>
         )}
       </div>
     </motion.div>

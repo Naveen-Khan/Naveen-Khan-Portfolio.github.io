@@ -1,8 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiDownload, HiMail, HiArrowDown } from "react-icons/hi";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
+};
+const clipReveal: Variants = {
+  hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)", y: 12 },
+  show: {
+    opacity: 1,
+    clipPath: "inset(0 0% 0 0)",
+    y: 0,
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+const floatIn: Variants = {
+  hidden: { opacity: 0, y: 20, scale: 0.9, rotate: -3 },
+  show: { opacity: 1, y: 0, scale: 1, rotate: 0, transition: { duration: 0.8, ease: EASE } },
+};
 
 
 const HeroSection = () => {
@@ -59,9 +82,10 @@ const HeroSection = () => {
 
       {/* Floating glass accent cards */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        variants={floatIn}
+        initial="hidden"
+        animate="show"
+        transition={{ delay: 1.1 }}
         className="hidden lg:block absolute top-32 left-10 glass-card px-4 py-3 rounded-2xl animate-float"
         style={parallax(-30)}
       >
@@ -69,9 +93,10 @@ const HeroSection = () => {
         <p className="text-sm font-display text-foreground mt-1">RAG Pipelines · LLM Agents</p>
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        variants={floatIn}
+        initial="hidden"
+        animate="show"
+        transition={{ delay: 1.25 }}
         className="hidden lg:block absolute bottom-32 right-10 glass-card px-4 py-3 rounded-2xl animate-float"
         style={{ ...parallax(-25), animationDelay: "-3s" }}
       >
@@ -79,9 +104,10 @@ const HeroSection = () => {
         <p className="text-sm font-display text-foreground mt-1">Karachi, Pakistan</p>
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        variants={floatIn}
+        initial="hidden"
+        animate="show"
+        transition={{ delay: 1.4 }}
         className="hidden xl:flex absolute top-1/3 right-16 glass-card glow-border px-4 py-3 rounded-2xl items-center gap-3"
         style={parallax(-40)}
       >
@@ -90,40 +116,50 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Main content */}
-      <div className="section-container relative z-10 text-center" style={parallax(8)}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex items-center justify-center gap-3 mb-8"
-        >
-          <span className="h-px w-12 bg-gradient-to-r from-transparent to-copper" />
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="section-container relative z-10 text-center"
+        style={parallax(8)}
+      >
+        <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-8">
+          <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+            className="h-px w-12 bg-gradient-to-r from-transparent to-copper origin-right"
+          />
           <p className="font-serif-italic text-copper-glow tracking-widest text-sm sm:text-base">
             build future with AI
           </p>
-          <span className="h-px w-12 bg-gradient-to-l from-transparent to-copper" />
+          <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+            className="h-px w-12 bg-gradient-to-l from-transparent to-copper origin-left"
+          />
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.1, delay: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+          variants={container}
           className="font-display font-bold leading-[0.95] tracking-tight animate-hero-reveal"
         >
-          <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl gradient-text-warm glow-text animate-pulse-glow-soft">
+          <motion.span
+            variants={clipReveal}
+            className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl gradient-text-warm glow-text animate-pulse-glow-soft"
+          >
             Naveen
-          </span>
-          <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground/95 mt-1 italic font-serif">
+          </motion.span>
+          <motion.span
+            variants={clipReveal}
+            className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground/95 mt-1 italic font-serif"
+          >
             Khan<span className="text-copper">.</span>
-          </span>
+          </motion.span>
         </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-8 flex flex-col items-center gap-2"
-        >
+        <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center gap-2">
           <p className="text-base sm:text-lg uppercase tracking-[0.4em] text-foreground/80 font-medium">
             Creative Developer
           </p>
@@ -146,9 +182,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          variants={fadeUp}
           className="text-muted-foreground mt-6 max-w-xl mx-auto text-sm sm:text-base leading-relaxed"
         >
           Crafting intelligent systems where data, design, and decision-making meet.
@@ -156,36 +190,39 @@ const HeroSection = () => {
           up to 30% and delivers measurable impact.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="flex flex-wrap gap-3 justify-center mt-10"
-        >
-          <a
+        <motion.div variants={fadeUp} className="flex flex-wrap gap-3 justify-center mt-10">
+          <motion.a
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             href="#projects"
             onClick={(e) => handleAnchorClick(e, "#projects")}
             className="btn-glow group inline-flex items-center gap-2 bg-gradient-to-r from-copper-glow via-copper to-bronze text-background px-6 py-3 rounded-full font-semibold text-sm uppercase tracking-[0.15em]"
           >
             Explore Portfolio
             <HiArrowDown className="text-base group-hover:translate-y-0.5 transition-transform" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             href="#contact"
             onClick={(e) => handleAnchorClick(e, "#contact")}
             className="glass-card card-hover-glow inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm uppercase tracking-[0.15em] text-foreground"
           >
             <HiMail className="text-base" /> Contact Me
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             href={`${import.meta.env.BASE_URL}Naveen_Resume.pdf`}
             download
             className="glass-card card-hover-glow inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm uppercase tracking-[0.15em] text-foreground"
           >
             <HiDownload /> Resume
-          </a>
+          </motion.a>
           <div className="flex gap-2">
-            <a
+            <motion.a
+              whileHover={{ y: -3, rotate: -6, scale: 1.08 }}
+              whileTap={{ scale: 0.94 }}
               href="https://github.com/Naveen-Khan"
               target="_blank"
               rel="noopener noreferrer"
@@ -193,8 +230,10 @@ const HeroSection = () => {
               className="glass-card card-hover-glow inline-flex items-center justify-center w-12 h-12 rounded-full text-foreground"
             >
               <FaGithub />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -3, rotate: 6, scale: 1.08 }}
+              whileTap={{ scale: 0.94 }}
               href="https://www.linkedin.com/in/naveen-khan-417103258/"
               target="_blank"
               rel="noopener noreferrer"
@@ -202,10 +241,10 @@ const HeroSection = () => {
               className="glass-card card-hover-glow inline-flex items-center justify-center w-12 h-12 rounded-full text-foreground"
             >
               <FaLinkedin />
-            </a>
+            </motion.a>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
     </section>
   );
