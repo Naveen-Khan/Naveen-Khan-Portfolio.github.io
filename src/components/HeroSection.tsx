@@ -1,8 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiDownload, HiMail, HiArrowDown } from "react-icons/hi";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+};
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
+};
+const clipReveal: Variants = {
+  hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)", y: 12 },
+  show: {
+    opacity: 1,
+    clipPath: "inset(0 0% 0 0)",
+    y: 0,
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+const floatIn: Variants = {
+  hidden: { opacity: 0, y: 20, scale: 0.9, rotate: -3 },
+  show: { opacity: 1, y: 0, scale: 1, rotate: 0, transition: { duration: 0.8, ease: EASE } },
+};
 
 
 const HeroSection = () => {
