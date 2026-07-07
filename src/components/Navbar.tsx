@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 
 const navLinks = [
@@ -11,11 +10,6 @@ const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
-];
-
-const profileLinks = [
-  { label: "GitHub", href: "https://github.com/Naveen-Khan", Icon: FaGithub },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/naveen-khan-417103258/", Icon: FaLinkedin },
 ];
 
 const scrollToSection = (href: string) => {
@@ -125,20 +119,6 @@ const Navbar = () => {
           </ul>
 
           <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              {profileLinks.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-muted-foreground hover:border-copper/60 hover:text-copper-glow"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
-            </div>
 
             <a
               href="#contact"
@@ -189,19 +169,6 @@ const Navbar = () => {
                     </a>
                   </li>
                 ))}
-                <li className="grid grid-cols-2 gap-2 pt-2">
-                  {profileLinks.map(({ label, href, Icon }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-border/50 px-4 py-3 text-xs uppercase tracking-[0.16em] text-muted-foreground hover:border-copper/60 hover:text-copper-glow"
-                    >
-                      <Icon size={14} /> {label}
-                    </a>
-                  ))}
-                </li>
               </ul>
             </motion.div>
           )}

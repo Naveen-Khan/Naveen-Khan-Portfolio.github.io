@@ -6,7 +6,7 @@ const experiences = [
   {
     role: "AI Engineer Intern",
     company: "Civil Aviation Authority Pakistan",
-    location: "Islamabad, PK",
+    location: "Hyderabad Airport, PK",
     date: "Jul 2025 — Aug 2025",
     tag: "Government · Aviation",
     summary:
