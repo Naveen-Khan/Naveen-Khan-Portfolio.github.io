@@ -66,6 +66,7 @@ const projects = [
     description:
       "An intelligent sales forecasting platform powered by Polynomial Regression. Analyzes advertising investments across TV, Radio, and Newspaper channels to predict future sales, optimize marketing budgets, and deliver actionable business insights through an interactive dashboard.\n\nAchieved 95.3% R² accuracy with 0.903 MAE, validated through enabling businesses to make data-driven marketing decisions with confidence.",
     live: "https://naveen-khan-sales-prediction-app-bamzvr.streamlit.app",
+    github: "https://github.com/Naveen-Khan/RevenueAi",
   },
   {
     n: "08",
@@ -74,6 +75,17 @@ const projects = [
     tech: ["n8n", "OpenRouter AI LLMs", "Google Sheets", "Gmail", "JavaScript", "GCP"],
     description:
       "An AI-powered email automation agent built with n8n that sends 50+ personalized sales emails daily to potential clients. The system automatically reads company data from Google Sheets, generates tailored outreach emails using LLMs, sends them without manual intervention, and logs all email content back to the sheet. Reduced manual effort by 90% while maintaining a cost of approximately $0.02 per email.",
+    github: "https://github.com/Naveen-Khan/Smart-Email-Outreach-Agent",
+  },
+  {
+    n: "09",
+    title: "CardioRisk AI — Clinical Decision Support System",
+    tag: "AI · HEALTHCARE · CLINICAL DECISION SUPPORT",
+    tech: ["Machine Learning", "Next.js", "Python", "SQLite", "Tailwind CSS", "Vercel"],
+    description:
+      "An intelligent web application that predicts heart disease risk using 13 clinical variables with 97.6% accuracy. Powered by Support Vector Machine (SVM) and validated on 3,800+ patient records, the platform delivers real-time risk stratification, and multi-format medical reports (PDF, CSV, Excel). Logistic Regression baseline (80.5% accuracy) included for clinical comparison. Deployed globally via Vercel.",
+    live: "https://web-un87u2afa-naveenkhan0111-4662s-projects.vercel.app",
+    github: "https://github.com/Naveen-Khan/Heart_Disease_prediction",
   },
 ];
 
