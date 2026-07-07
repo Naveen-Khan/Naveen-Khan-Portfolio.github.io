@@ -125,20 +125,6 @@ const Navbar = () => {
           </ul>
 
           <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              {profileLinks.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-muted-foreground hover:border-copper/60 hover:text-copper-glow"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
-            </div>
 
             <a
               href="#contact"
