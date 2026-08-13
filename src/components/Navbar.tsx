@@ -70,7 +70,7 @@ const Navbar = () => {
           backdropFilter: "blur(28px) saturate(1.4)",
         }}
       >
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex items-center justify-between gap-4">
           <a
             href="#"
             onClick={(e) => {
@@ -84,10 +84,10 @@ const Navbar = () => {
               NK
               <div className="absolute inset-0 rounded-full bg-copper-glow/40 blur-md group-hover:blur-lg transition-all" />
             </div>
-            <span className="hidden sm:block font-display text-base tracking-wide gradient-text">Naveen Khan</span>
+            <span className="hidden sm:block font-display text-base tracking-wide gradient-text whitespace-nowrap">Naveen Khan</span>
           </a>
 
-          <ul className="hidden md:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((l) => {
               const isActive = active === l.href;
               return (
@@ -99,7 +99,7 @@ const Navbar = () => {
                       scrollToSection(l.href);
                       setOpen(false);
                     }}
-                    className={`relative px-4 py-2 text-xs uppercase tracking-[0.18em] font-medium transition-colors ${
+                    className={`relative px-3 py-2 text-[11px] uppercase tracking-[0.14em] whitespace-nowrap font-medium transition-colors ${
                       isActive ? "text-copper-glow" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
@@ -118,7 +118,7 @@ const Navbar = () => {
             })}
           </ul>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
 
             <a
               href="#contact"
@@ -133,7 +133,7 @@ const Navbar = () => {
             </a>
           </div>
 
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
 
             <button
               onClick={() => setOpen(!open)}
@@ -151,7 +151,7 @@ const Navbar = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden overflow-hidden mt-3"
+              className="lg:hidden overflow-hidden mt-3"
             >
               <ul className="flex flex-col gap-1 pt-2 border-t border-border/40 text-center">
                 {navLinks.map((l) => (
