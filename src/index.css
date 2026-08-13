@@ -6,65 +6,66 @@
 
 @layer base {
   :root {
-    /* BROWN · ORANGE · BLACK · WHITE */
-    --background: 0 0% 0%;              /* pure black */
-    --foreground: 0 0% 98%;             /* white */
+    /* Refined charcoal + ember — quiet luxury */
+    --background: 24 8% 4%;             /* deep warm charcoal */
+    --foreground: 30 12% 94%;           /* warm off-white */
 
-    --card: 0 0% 8%;                     /* near black */
-    --card-foreground: 0 0% 98%;
+    --card: 24 8% 8%;
+    --card-foreground: 30 12% 94%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 24 8% 8%;
+    --popover-foreground: 30 12% 94%;
 
-    /* Orange primary */
-    --primary: 22 90% 55%;              /* vivid orange */
-    --primary-foreground: 0 0% 8%;
+    /* Muted ember primary */
+    --primary: 18 72% 52%;
+    --primary-foreground: 24 10% 6%;
 
-    --secondary: 22 20% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 24 10% 11%;
+    --secondary-foreground: 30 12% 94%;
 
-    --muted: 22 15% 12%;
-    --muted-foreground: 28 10% 70%;
+    --muted: 24 8% 12%;
+    --muted-foreground: 28 8% 62%;
 
-    --accent: 22 90% 55%;
-    --accent-foreground: 0 0% 8%;
+    --accent: 18 72% 52%;
+    --accent-foreground: 24 10% 6%;
 
-    --destructive: 0 65% 55%;
+    --destructive: 0 60% 48%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 22 20% 16%;
-    --input: 22 20% 16%;
-    --ring: 22 90% 60%;
+    --border: 26 10% 16%;
+    --input: 26 10% 16%;
+    --ring: 18 72% 52%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Brown + Orange accents */
-    --copper: 22 85% 52%;               /* orange */
-    --copper-glow: 24 95% 62%;          /* bright orange */
-    --bronze: 25 55% 38%;               /* brown */
-    --cocoa: 22 35% 18%;                /* deep brown */
+    /* Ember + bronze accents (desaturated, editorial) */
+    --copper: 19 68% 52%;
+    --copper-glow: 24 78% 62%;
+    --bronze: 26 38% 36%;
+    --cocoa: 24 22% 14%;
 
-    --gold: 22 85% 52%;
-    --gold-glow: 24 95% 62%;
-    --amber: 20 80% 50%;
-    --orange-glow: 22 95% 60%;
-    --crimson: 18 75% 45%;
-    --crimson-glow: 22 90% 55%;
-    --purple-ambient: 25 55% 35%;
-    --purple-glow: 22 70% 45%;
+    --gold: 34 55% 58%;
+    --gold-glow: 36 65% 68%;
+    --amber: 28 62% 52%;
+    --orange-glow: 20 75% 56%;
+    --crimson: 14 55% 44%;
+    --crimson-glow: 18 62% 50%;
+    --purple-ambient: 26 32% 30%;
+    --purple-glow: 22 45% 40%;
 
-    --glass-bg: 0 0% 8%;
-    --glass-border: 22 20% 20%;
+    --glass-bg: 24 8% 9%;
+    --glass-border: 26 12% 20%;
 
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 22 90% 55%;
-    --sidebar-primary-foreground: 0 0% 8%;
-    --sidebar-accent: 22 20% 12%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 22 20% 16%;
-    --sidebar-ring: 22 90% 60%;
+    --sidebar-background: 24 8% 4%;
+    --sidebar-foreground: 30 12% 94%;
+    --sidebar-primary: 18 72% 52%;
+    --sidebar-primary-foreground: 24 10% 6%;
+    --sidebar-accent: 24 10% 11%;
+    --sidebar-accent-foreground: 30 12% 94%;
+    --sidebar-border: 26 10% 16%;
+    --sidebar-ring: 18 72% 52%;
   }
+
 
 
 
