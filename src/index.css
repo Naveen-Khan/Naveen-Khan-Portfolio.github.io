@@ -6,70 +6,67 @@
 
 @layer base {
   :root {
-    /* Refined charcoal + ember — quiet luxury */
-    --background: 24 8% 4%;             /* deep warm charcoal */
-    --foreground: 30 12% 94%;           /* warm off-white */
+    /* Editorial ink + ember — quiet, professional luxury */
+    --background: 24 10% 5%;            /* near-black warm ink */
+    --foreground: 32 16% 92%;           /* warm paper white */
 
-    --card: 24 8% 8%;
-    --card-foreground: 30 12% 94%;
+    --card: 24 10% 8%;
+    --card-foreground: 32 16% 92%;
 
-    --popover: 24 8% 8%;
-    --popover-foreground: 30 12% 94%;
+    --popover: 24 10% 8%;
+    --popover-foreground: 32 16% 92%;
 
-    /* Muted ember primary */
-    --primary: 18 72% 52%;
-    --primary-foreground: 24 10% 6%;
+    /* Restrained ember primary */
+    --primary: 22 70% 54%;
+    --primary-foreground: 24 12% 7%;
 
-    --secondary: 24 10% 11%;
-    --secondary-foreground: 30 12% 94%;
+    --secondary: 24 10% 12%;
+    --secondary-foreground: 32 16% 92%;
 
-    --muted: 24 8% 12%;
-    --muted-foreground: 28 8% 62%;
+    --muted: 24 8% 13%;
+    --muted-foreground: 30 8% 66%;
 
-    --accent: 18 72% 52%;
-    --accent-foreground: 24 10% 6%;
+    --accent: 22 70% 54%;
+    --accent-foreground: 24 12% 7%;
 
-    --destructive: 0 60% 48%;
+    --destructive: 0 58% 46%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 26 10% 16%;
-    --input: 26 10% 16%;
-    --ring: 18 72% 52%;
+    --border: 28 10% 17%;
+    --input: 28 10% 17%;
+    --ring: 22 70% 54%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     /* Ember + bronze accents (desaturated, editorial) */
-    --copper: 19 68% 52%;
-    --copper-glow: 24 78% 62%;
-    --bronze: 26 38% 36%;
-    --cocoa: 24 22% 14%;
+    --copper: 21 66% 54%;
+    --copper-glow: 28 74% 64%;
+    --bronze: 28 34% 38%;
+    --cocoa: 24 20% 13%;
 
-    --gold: 34 55% 58%;
-    --gold-glow: 36 65% 68%;
-    --amber: 28 62% 52%;
-    --orange-glow: 20 75% 56%;
-    --crimson: 14 55% 44%;
-    --crimson-glow: 18 62% 50%;
-    --purple-ambient: 26 32% 30%;
-    --purple-glow: 22 45% 40%;
+    --gold: 36 48% 60%;
+    --gold-glow: 38 58% 70%;
+    --amber: 30 58% 54%;
+    --orange-glow: 22 72% 58%;
+    --crimson: 14 48% 44%;
+    --crimson-glow: 18 56% 50%;
+    --purple-ambient: 26 28% 28%;
+    --purple-glow: 24 40% 38%;
 
-    --glass-bg: 24 8% 9%;
-    --glass-border: 26 12% 20%;
+    --glass-bg: 24 10% 9%;
+    --glass-border: 28 12% 21%;
 
-    --sidebar-background: 24 8% 4%;
-    --sidebar-foreground: 30 12% 94%;
-    --sidebar-primary: 18 72% 52%;
-    --sidebar-primary-foreground: 24 10% 6%;
-    --sidebar-accent: 24 10% 11%;
-    --sidebar-accent-foreground: 30 12% 94%;
-    --sidebar-border: 26 10% 16%;
-    --sidebar-ring: 18 72% 52%;
+    --sidebar-background: 24 10% 5%;
+    --sidebar-foreground: 32 16% 92%;
+    --sidebar-primary: 22 70% 54%;
+    --sidebar-primary-foreground: 24 12% 7%;
+    --sidebar-accent: 24 10% 12%;
+    --sidebar-accent-foreground: 32 16% 92%;
+    --sidebar-border: 28 10% 17%;
+    --sidebar-ring: 22 70% 54%;
   }
-
-
-
-
 }
+
 
 @layer base {
   * { @apply border-border; }
