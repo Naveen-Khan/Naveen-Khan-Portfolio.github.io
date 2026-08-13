@@ -147,7 +147,7 @@ const HeroSection = () => {
         >
           <motion.span
             variants={clipReveal}
-            className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl gradient-text-warm glow-text animate-pulse-glow-soft"
+            className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl gradient-text-warm glow-text"
           >
             Naveen
           </motion.span>
@@ -159,7 +159,7 @@ const HeroSection = () => {
           </motion.span>
         </motion.h1>
 
-        <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center gap-2">
+        <motion.div variants={fadeUp} className="mt-9 flex flex-col items-center gap-3">
           <p className="text-base sm:text-lg uppercase tracking-[0.4em] text-foreground/80 font-medium">
             Creative Developer
           </p>
@@ -183,14 +183,14 @@ const HeroSection = () => {
 
         <motion.p
           variants={fadeUp}
-          className="text-muted-foreground mt-6 max-w-xl mx-auto text-sm sm:text-base leading-relaxed"
+          className="text-muted-foreground mt-7 mb-2 max-w-[38rem] mx-auto text-sm sm:text-[0.975rem] leading-[1.85] text-balance"
         >
           Crafting intelligent systems where data, design, and decision-making meet.
           Building production-grade AI that solves real problems, cuts support costs
           up to 30% and delivers measurable impact.
         </motion.p>
 
-        <motion.div variants={fadeUp} className="flex flex-wrap gap-3 justify-center mt-10">
+        <motion.div variants={fadeUp} className="flex flex-wrap gap-3 justify-center mt-12">
           <motion.a
             whileHover={{ y: -3, scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
